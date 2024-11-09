@@ -33,3 +33,41 @@ Explain how the design would allow for these new requirements to be implemented:
 
 Explain how you would persist the model to a database with an ORM, what changes would be needed to the model, etc
 How would you create a report of the sum of the total price of the orders, grouped per month?
+
+<p align="center">♻️ <b>Constructing iterable as possible</b> ♻️</p>
+
+## Architecture Explanation/POM/Food for thought.
+
+- Using **Java 9 Module structure**. Since it was in specifications and its small program only one module is used. This was something new to me so studied it, and try to apply it here. This can help compilation times for large projects.
+    - ⚠️ Do this after get normal workflow working. Seems like **JPMS** now fully support in Spring yet.
+- Showing data with **Thymeleaf** as HTML.
+    - ⚠️ Think about MVC pattern here, for now i went with good be practices.
+- Showing data as Text with **Spring end point**.
+- **Spring Web Web** for API:s.
+- **PostgreSQL Driver SQL** for **PostgreSQL** database.
+- **Spring Data JPA SQL** for PostgreSQL JDBC driver and data access layer.
+- **Spring Boot DevTools** for fast development tools.
+
+# How to run!
+
+Get the repository.
+
+```bash
+git clone https://github.com/developersCradle/office-furniture-selling-application.git
+```
+
+# Docker.
+
+- ⚠️ Todo here, since real database is used. This works for now in development environment.
+
+```bash
+docker-compose up -d
+```
+
+# API Document.
+
+- ⚠️ Todo here.
+
+# Database Design
+
+- ⚠️ Todo here.
