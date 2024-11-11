@@ -36,13 +36,40 @@ How would you create a report of the sum of the total price of the orders, group
 
 <p align="center">♻️ <b>Constructing iterable as possible</b> ♻️</p>
 
+- Been since i worked with ORM specifically, so decided to make some random comments on the way to big image of things.
+
 ## Architecture Explanation/POM/Food for thought.
+
+### Food for thought.
+
+> You are working on the order module.
 
 - Using **Java 9 Module structure**. Since it was in specifications and its small program only one module is used. This was something new to me so studied it, and try to apply it here. This can help compilation times for large projects.
     - ⚠️ Do this after get normal workflow working. Seems like **JPMS** now fully support in Spring yet.
+
+> Display the details of an order, indicating, if any, the discounts that have been > applied. The output would need to support text and HTML.
+
 - Showing data with **Thymeleaf** as HTML.
     - ⚠️ Think about MVC pattern here, for now i went with good be practices.
 - Showing data as Text with **Spring end point**.
+
+> Products can have an optional category, and a new type of discount is: X% off products of a given category.
+
+- **Products** can have an optional category. **null** is **no category** specified.
+    - We use **enum** in categories since they are fixed and small.
+- Discount is: X% off products of a given category. Is handled in **service layer**.
+
+### Architecture Explanation and choices.
+
+-  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
+- **Entities** till **Service Layer**.
+- **DTO**s  for inside our business logic.
+
+**Repository** interfaces for each core entity:
+    - `CustomerRepository`, `OrderRepository`, and `ProductRepository`.
+
+### POM.
+
 - **Spring Web Web** for API:s.
 - **PostgreSQL Driver SQL** for **PostgreSQL** database.
 - **Spring Data JPA SQL** for PostgreSQL JDBC driver and data access layer.
@@ -63,6 +90,13 @@ git clone https://github.com/developersCradle/office-furniture-selling-applicati
 ```bash
 docker-compose up -d
 ```
+
+- When there is database changes, sometimes its better redo whole database!
+
+```bash
+docker-compose down --volumes --remove-orphans
+```
+
 
 # API Document.
 
