@@ -16,17 +16,23 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/*
+ * The Product table will represent a product in your system.
+ */
+
 @AllArgsConstructor  
 @NoArgsConstructor   
 @Entity
 @Table(name = "products")
 public class Product {
 
+	// Better to use Long for db practice.
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
     private String name;
-    private BigDecimal price;
+    private BigDecimal price; // Products prize.
     
     
     /*

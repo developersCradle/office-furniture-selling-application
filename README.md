@@ -63,9 +63,13 @@ How would you create a report of the sum of the total price of the orders, group
 
 -  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
 - **Entities** till **Service Layer**.
-- **DTO**s  for inside our business logic.
+- **Entities** will mostly use **One-to-Many** and **Many-to-One** relationships for convince for backend coding.
+    - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic for entities.
+    - **Todo** add helpers methods for all bi-directional entities.
 
-**Repository** interfaces for each core entity:
+- **DTO** are used for inside our business logic.
+
+- **Repository** interfaces for each core entity:
     - `CustomerRepository`, `OrderRepository`, and `ProductRepository`.
 
 ### POM.
