@@ -4,7 +4,7 @@ package com.officesales.office_furniture_sales.entity;
 
 import java.math.BigDecimal;
 
-import com.officesales.office_furniture_sales.entity.shared.Category;
+import com.officesales.office_furniture_sales.shared.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

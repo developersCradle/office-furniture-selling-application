@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.officesales.office_furniture_sales.entity.Product;
-import com.officesales.office_furniture_sales.entity.shared.Category;
 import com.officesales.office_furniture_sales.repository.ProductRepository;
+import com.officesales.office_furniture_sales.shared.Category;
 
 /*
  * This one for startup some dummy data on db!

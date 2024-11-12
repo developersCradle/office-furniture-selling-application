@@ -1,4 +1,4 @@
-package com.officesales.office_furniture_sales.entity.shared;
+package com.officesales.office_furniture_sales.shared;
 
 /*
  * Represents different types of office furniture.
