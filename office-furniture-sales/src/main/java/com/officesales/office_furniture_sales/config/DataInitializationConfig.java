@@ -14,13 +14,17 @@ import com.officesales.office_furniture_sales.repository.ProductRepository;
 /*
  * This one for startup some dummy data on db!
  */
+
 @Configuration
 public class DataInitializationConfig {
 
     @Bean
     CommandLineRunner initDatabase(ProductRepository productRepository) {
         return args -> {
-            List<Product> products = List.of(
+        	
+        	// START - Adding some dummy Products for database.
+            
+        	List<Product> products = List.of(
             		
                 new Product(null, "Executive Office Chair", new BigDecimal("250.00"), Category.CHAIRS),
                 new Product(null, "Adjustable Desk", new BigDecimal("700.00"), Category.DESKS),
@@ -32,6 +36,8 @@ public class DataInitializationConfig {
             );
 
             productRepository.saveAll(products);
+            
+         // END - Adding some dummy Products for database.
         };
     }
 }

@@ -12,7 +12,7 @@ import com.officesales.office_furniture_sales.entity.Product;
  * Using Repository over DAO, since its more common and its remade Spring family.
  * Reminder for myself to use Longs ID for best practices in ORM frameworks like JPA.
  * 
- * This class is for initializing some type of products for database.
+ * This class is for initializing some type of Products for database.
  */
 
 @Repository
