@@ -36,7 +36,7 @@ How would you create a report of the sum of the total price of the orders, group
 
 <p align="center">♻️ <b>Constructing iterable as possible</b> ♻️</p>
 
-- Been since i worked with ORM specifically, so decided to make some random comments on the way to big image of things.
+- Been since i worked with ORM specifically, so decided to make some random comments on the way to form big image of things.
 
 ## Architecture Explanation/POM/Food for thought.
 
@@ -64,13 +64,15 @@ How would you create a report of the sum of the total price of the orders, group
 -  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
 - **Entities** till **Service Layer**.
 - **Entities** will mostly use **One-to-Many** and **Many-to-One** relationships for convince for backend coding.
-    - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic for entities.
+    - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
     - **Todo** add helpers methods for all bi-directional entities.
 
 - **DTO** are used for inside our business logic.
 
 - **Repository** interfaces for each core entity:
-    - `CustomerRepository`, `OrderRepository`, and `ProductRepository`.
+    - `CustomerRepository`, `DiscountRepository`, `OrderRepository`, and `ProductRepository`.
+- Saving wil be done using `repository` since we have **properly configured** entity relationships.
+    - `EntityManager` could be also used for fine-grained control over the persistence context.
 
 ### POM.
 

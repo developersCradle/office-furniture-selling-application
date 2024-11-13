@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /*
@@ -21,7 +22,8 @@ import lombok.NoArgsConstructor;
  */
 
 @AllArgsConstructor  
-@NoArgsConstructor   
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "products")
 public class Product {

@@ -55,6 +55,8 @@ public class Order {
      *
      * Set for fast lookup times and uniqueness.
      * 
+     * One Order, for many OrderItemInCart:s.
+     * 
      * The value of mappedBy "order" refers to the name of the field in that owns the relationship, Entity named OrderItemInCart.
      * Inverse Side of relationship.
      * 

@@ -7,13 +7,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
+
 
 /*
  * The Customer table represents a customer in the system, which can have discount agreements.
  */
+//TODO heikki, since discount was optional for customer we remove it here
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -26,7 +35,8 @@ public class Customer {
 
     private String name;
 
-    /* List or Set?
+    /*
+     * List or Set?
      * Use list the order of items is critical, List will preserve insertion order.
      * Duplicate entries are acceptable.
      *
@@ -52,8 +62,21 @@ public class Customer {
         orders.remove(order);
         order.setCustomer(null); // Remember to add null when adding trough Entity helper class.
     }
-//    TODO(Heikki, model) Think how Discount would be taken place.
-//    @OneToMany(mappedBy = "customer")
-//    private Set<DiscountAgreement> discountAgreements;
+    
+    /* 
+     * List or Set?
+     * Use list the order of items is critical, List will preserve insertion order.
+     * Duplicate entries are acceptable.
+     *
+     * Set for fast lookup times and uniqueness.
+     * One Customer can have many Discount.
+     * 
+     * No logic at Entity level, this can be exception initializing collections at the entity level.
+     * Some customers can have some Discount Agreements.
+     */
+    
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<Discount> discountAgreements = new HashSet<>(); // Initialized to an empty set
+    
 
 }
