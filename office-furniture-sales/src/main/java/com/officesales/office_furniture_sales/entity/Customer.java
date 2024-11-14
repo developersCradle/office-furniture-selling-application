@@ -9,7 +9,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,12 +24,13 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "customers")
 public class Customer {
 
-	// Better to use Long for db practice
+	// Better to use Long for db practice.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +53,7 @@ public class Customer {
      */
     
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<Order> orders;
+    public Set<Order> orders = new HashSet<>(); // Initialized to an empty set.
 
     // Helper methods to manage bidirectional relationship, adding Order to this Customer.
     public void addOrder(Order order) {
@@ -76,7 +79,7 @@ public class Customer {
      */
     
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<Discount> discountAgreements = new HashSet<>(); // Initialized to an empty set
+    private Set<Discount> discountAgreements = new HashSet<>(); // Initialized to an empty set.
     
 
 }
