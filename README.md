@@ -46,11 +46,14 @@ How would you create a report of the sum of the total price of the orders, group
 
 - Using **Java 9 Module structure**. Since it was in specifications and its small program only one module is used. This was something new to me so studied it, and try to apply it here. This can help compilation times for large projects.
     - ⚠️ Do this after get normal workflow working. Seems like **JPMS** now fully support in Spring yet.
+    - [Make this in the end](https://spring.io/guides/gs/multi-module).
 
 > Display the details of an order, indicating, if any, the discounts that have been > applied. The output would need to support text and HTML.
 
 - Showing data with **Thymeleaf** as HTML.
-    - ⚠️ Think about MVC pattern here, for now i went with good be practices.
+    - ⚠️ Think about MVC pattern here, for now i went with good be practices. Got some template working for now, only **one** and best discount should show.
+    <img src="someWhatWorkingNow.jpg" alt="reactive programming" width="400" height="150"/>
+    
 - Showing data as Text with **Spring end point**.
 
 > Products can have an optional category, and a new type of discount is: X% off products of a given category.
@@ -63,16 +66,17 @@ How would you create a report of the sum of the total price of the orders, group
 
 -  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
 - **Entities** till **Service Layer**.
+- ⚠️ Todo **Entities** are validate to the business rule.
 - **Entities** will mostly use **One-to-Many** and **Many-to-One** relationships for convince for backend coding.
     - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
-    - **Todo** add helpers methods for all bi-directional entities.
+    - ⚠️**Todo** add helpers methods for all bi-directional entities.
 
 - **DTO** are used for inside our business logic.
 
 - **Repository** interfaces for each core entity:
-    - `CustomerRepository`, `DiscountRepository`, `OrderRepository`, and `ProductRepository`.
+    - `CustomerRepository`, `DiscountRepository`, `OrderRepository` and `ProductRepository`.
 - Saving wil be done using `repository` since we have **properly configured** entity relationships.
-    - `EntityManager` could be also used for fine-grained control over the persistence context.
+    - `EntityManager` could be also used for fine-grained control over the persistence context, but for now went with Repositories.
 
 ### POM.
 
@@ -103,10 +107,22 @@ docker-compose up -d
 docker-compose down --volumes --remove-orphans
 ```
 
-
 # API Document.
 
-- ⚠️ Todo here.
+- ⚠️ Todo think end point URL. For now they just work.
+
+## Endpoint: `GET /api/customers`
+
+### Overview.
+This endpoint retrieves a list of all customers in the database.
+- **Response:** A list of customer, including the customer's ID and name. In JSON.
+
+
+## Endpoint: `/order/report/{orderId}`
+
+### Overview.
+This endpoint fetches and displays a detailed report for a specific order identified by its `orderId`. 
+Report is an **HTML page** using the **Thymeleaf** template engine.
 
 # Database Design
 

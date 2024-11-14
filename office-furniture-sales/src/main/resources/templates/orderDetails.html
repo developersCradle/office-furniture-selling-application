@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    
+    <!-- Link to External CSS File -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Order Details</h1>
+        
+        <!-- Order Information -->
+        <div class="order-info">
+            <h2>Order ID: <span th:text="${order.orderId}">Order ID</span></h2>
+            <p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}">Order Date</span></p>
+            <p><strong>Total Amount:</strong> $<span th:text="${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Total Amount</span></p>
+        </div>
+
+        <hr>
+        
+        <!-- Order Items -->
+        <h2>Items in Order</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${order.items}">
+                    <td th:text="${item.productName}">Product Name</td>
+                    <td th:text="${#numbers.formatDecimal(item.unitPrice, 1, 'COMMA', 2, 'POINT')}">Unit Price</td>
+                    <td th:text="${item.quantity}">Quantity</td>
+                    <td th:text="${#numbers.formatDecimal(item.totalPrice, 1, 'COMMA', 2, 'POINT')}">Total Price</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- Discounts Applied -->
+        <h2>Applied Discounts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Discount Type</th>
+                    <th>Discount Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="discount : ${order.appliedDiscounts}">
+                    <td th:text="${discount.discountType}">Discount Type</td>
+                    <td th:text="${#numbers.formatDecimal(discount.discountValue, 1, 'COMMA', 2, 'POINT')}">Discount Value</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        
+        <!-- Final Total with Discounts Applied -->
+        <div class="final-total">
+            <h3>Final Total After Discounts</h3>
+            <p><strong>After applying all discounts, the final amount is: </strong>
+                $<span th:text="${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Final Amount</span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

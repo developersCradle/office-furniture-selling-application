@@ -10,8 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /*
  * Represents a specific product within an order process, in this context web-shop cart.
@@ -19,9 +20,10 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "order_items_in_cart") //TODO(Heikki, ask about this one)
+@Table(name = "order_items_in_cart")
 public class OrderItemInCart {
 
 	// Better to use Long for db practice.
@@ -54,8 +56,8 @@ public class OrderItemInCart {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    private int quantity;
+    private Integer quantity;
 
-    private BigDecimal unitPrice;  //Price at the given time, when OrderItem was added to cart.
+    private BigDecimal unitPrice;  // Price at the given time, when OrderItem was added to cart, not the total cart price.
 
 }

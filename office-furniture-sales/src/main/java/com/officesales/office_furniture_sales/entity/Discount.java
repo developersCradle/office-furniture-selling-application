@@ -15,15 +15,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /*
  * Represents a discount applied to a customer or specific product.
  */
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "discounts")
 public class Discount {
@@ -44,15 +47,19 @@ public class Discount {
     private DiscountType discountType;  // To differentiate discount types.
 
     /*
-     * nullable = true, so null values are allowed. Discount can have Product. The Product this discount applies to, if no it applies to Order. 
+     * nullable = true, so null values are allowed. Discount can have Product. The Product which this discount applies to, if no discount applies to Order. 
      */
     
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = true)
     private Product product;
 
-    @Column(nullable = false)
-    private BigDecimal discountValue;  // Used for percentage or fixed amount discount.
+    /*
+     * nullable = true, so null values are allowed. This has null when discount is buy x, pay y.  
+     */
+    
+    @Column(nullable = true)
+    private BigDecimal discountValue;  // Used only percentage. This one is null, when discount type is "Buy X, Pay Y", otherwise its % value.
     
     // Fields for Buy X, Pay Y discount logic.
     @Column(name = "buy_amount")
@@ -61,5 +68,18 @@ public class Discount {
     @Column(name = "pay_amount")
     private Integer payAmount; // For "Pay Y". Example Pay for 2".
 
+    /* 
+     * TODO(heikki, saved in session or in db. Open Depate) This should be done in front end session level, and Discount removed when pressed "Bought"?
+     * Discount can be left to db for data scientist to analyze later.
+     * 
+     * nullable = false, so no null values.
+     * We want enforce only true or false.
+     * 
+     * boolean if discount is applied or not.
+     */
+    @Column(name = "is_applied")
+    private boolean isApplied = false;
+
+    
     
 }

@@ -10,7 +10,6 @@ package com.officesales.office_furniture_sales.shared;
  */
 
 public enum DiscountType {
-    PERCENTAGE,      // Percentage discount example 15% off.
-    FIXED_AMOUNT,    // Fixed amount discount example 10€ off.
-    BUY_X_PAY_Y   	 // "Buy X, pay for Y".
+    PERCENTAGE,      // Percentage Discount example 15% off from Product or from Order.
+    BUY_X_PAY_Y   	 // Unit Discount "Buy X, pay for Y".
 }
