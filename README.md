@@ -60,7 +60,11 @@ How would you create a report of the sum of the total price of the orders, group
 
 - **Products** can have an optional category. **null** is **no category** specified.
     - We use **enum** in categories since they are fixed and small.
-- Discount is: X% off products of a given category. Is handled in **service layer**.
+- ⚠️ Todo Discount is: X% off products of a given category. Is handled in **service layer**.
+> A user can create an Order for a Customer, and add some products to that order. For that they would specify which product and the quantity.
+They can then add new products, change the quantity for existing products, or remove products from the order. (very similar to the web-shop cart).
+
+- This is done trough smaller end points, rather than one big end point where body would accept Object.
 
 ### Architecture Explanation and choices.
 
@@ -70,6 +74,7 @@ How would you create a report of the sum of the total price of the orders, group
 - **Entities** will mostly use **One-to-Many** and **Many-to-One** relationships for convince for backend coding.
     - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
     - ⚠️**Todo** add helpers methods for all bi-directional entities.
+- ⚠️ Todo Indexing.
 
 - **DTO** are used for inside our business logic.
 
@@ -78,6 +83,8 @@ How would you create a report of the sum of the total price of the orders, group
 - Saving wil be done using `repository` since we have **properly configured** entity relationships.
     - `EntityManager` could be also used for fine-grained control over the persistence context, but for now went with Repositories.
 
+-  `GlobalExceptionHandler` handles exceptions.
+    - A **GlobalExceptionHandler** in a Spring Boot application provides a centralized way to handle exceptions.
 ### POM.
 
 - **Spring Web Web** for API:s.
