@@ -10,11 +10,15 @@ import com.officesales.office_furniture_sales.entity.Customer;
 import com.officesales.office_furniture_sales.entity.Discount;
 import com.officesales.office_furniture_sales.entity.Order;
 
+/*
+ * Responsible handling discount calculations and its actions.
+ */
+
 @Service
 public class DiscountServiceImpl implements DiscountService {
 	
 	/*
-	 * Return highest value form Discount form given Order.
+	 * Return highest valued Discount. In this business logic, only one discount can apply at the time, regardless where it is going to be applied.
 	 */
 	
 	 public BigDecimal calculateBestDiscountForGivenOrder(Order order) {
@@ -33,8 +37,8 @@ public class DiscountServiceImpl implements DiscountService {
 	 /*
 	  * Calculate amount of value in money Customer gets using given discount. Discount can be affected to whole Order or to Product.
 	  */
-	 	//TODO Heikki(UniTest) Unit test for this madness!
-	    private BigDecimal calculateDiscountValue(Order placedOrder, Discount discount) {
+
+	 private BigDecimal calculateDiscountValue(Order placedOrder, Discount discount) {
 	        
 	        switch (discount.getDiscountType()) {
 	        
@@ -49,18 +53,19 @@ public class DiscountServiceImpl implements DiscountService {
 	                		    .orElse(BigDecimal.ZERO); // If no match found, set the total as zero.
 	                	
 	                    // Calculate the discount amount.
-	                	return unitPriceOfProductWithoutAnyDiscount.multiply(discount.getDiscountValue()).divide(new BigDecimal("100"));
+	                	return unitPriceOfProductWithoutAnyDiscount.multiply(discount.getDiscountValue());
 	                	
 	                }
 	                
-	                // Apply percentage Discount form the Order total.
+
+	                // Apply percentage Discount from the Order total.
 	                return placedOrder.getOrderItems().stream()
-	                	                .map(item -> item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()))) // Unit price(when was clicked) * quantity = total. This discount applied to whole Order.
-	                	                .reduce(BigDecimal.ZERO, BigDecimal::add); // Start from 0 and count all values total.
-	                		//TODO heikki tsekkaa tää
+	                	                .map(item -> item.getUnitPrice().multiply(new BigDecimal(item.getQuantity()))) // Unit price(when was clicked) * quantity = total. This discount applied to whole Order.
+	                	                .reduce(BigDecimal.ZERO, BigDecimal::add) // Start from 0 and count all values total.
+	                					.multiply(discount.getDiscountValue());  //100% - 10%(discount value) = 90% 
 	            case BUY_X_PAY_Y:
 	                // Example of "Buy X, Pay for Y" discount on a specific product.
-	            	placedOrder.getOrderItems().stream()
+	            	return placedOrder.getOrderItems().stream()
 	                        .filter(item -> item.getProduct().equals(discount.getProduct())) //Discounted Product is the same as in Discount.
 	                        .findFirst() // Get that OrderItemInCart to calculation.
 	                        .map(orderItemInCalculation -> { 

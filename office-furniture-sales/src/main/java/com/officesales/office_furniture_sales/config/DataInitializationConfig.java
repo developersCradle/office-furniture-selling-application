@@ -79,7 +79,7 @@ public class DataInitializationConfig {
 			Discount percent_discount_for_order = new Discount();
 			percent_discount_for_order.setCustomer(customer1); // Discount for Aku Ankka.
 			percent_discount_for_order.setDiscountType(DiscountType.PERCENTAGE);
-			percent_discount_for_order.setDiscountValue(new BigDecimal("10")); // 10% off.
+			percent_discount_for_order.setDiscountValue(new BigDecimal("0.10")); // 10% off.
 			percent_discount_for_order.setProduct(null); // null here. Setting this discount for Order, NOT to Product. It will affect full Order!
 			
 			Discount buy_x_pay_y_discount = new Discount();

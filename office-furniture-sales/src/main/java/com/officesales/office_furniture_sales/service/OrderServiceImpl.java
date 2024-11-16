@@ -118,7 +118,7 @@ public  class OrderServiceImpl implements OrderService {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Order not found with" + orderId));
 
-	    // Find the item form Order to be removed.
+	    // Find the item from Order to be removed.
 	    OrderItemInCart orderItemInCart = order.getOrderItems().stream()
 	            .filter(orderItem -> orderItem.getId().equals(orderItemInCartId))
 	            .findFirst()

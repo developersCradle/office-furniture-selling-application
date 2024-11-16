@@ -44,8 +44,8 @@ How would you create a report of the sum of the total price of the orders, group
 
 > You are working on the order module.
 
-- Using **Java 9 Module structure**. Since it was in specifications and its small program only one module is used. This was something new to me so studied it, and try to apply it here. This can help compilation times for large projects.
-    - ⚠️ Do this after get normal workflow working. Seems like **JPMS** now fully support in Spring yet.
+- Using **Java 9 Module structure**. Since it was in specifications and its small program only one module is used. This was something new to me, so studied it and tried to apply it here. This can help compilation times for large projects.
+    - ⚠️ Do this after get normal workflow working. Seems like **JPMS** not fully support in Spring yet.
     - [Make this in the end](https://spring.io/guides/gs/multi-module).
 
 > Display the details of an order, indicating, if any, the discounts that have been > applied. The output would need to support text and HTML.
@@ -80,7 +80,7 @@ They can then add new products, change the quantity for existing products, or re
     - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
     - ⚠️**Todo** add helpers methods for all bi-directional entities.
 - ⚠️ Todo Indexing.
-- ⚠️ Todo Unit Test and Integration Tests.
+- ⚠️ Todo Integration Tests.
 
 - **DTO** are used for inside our business logic.
 -  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
@@ -98,6 +98,9 @@ They can then add new products, change the quantity for existing products, or re
 - **PostgreSQL Driver SQL** for **PostgreSQL** database.
 - **Spring Data JPA SQL** for PostgreSQL JDBC driver and data access layer.
 - **Spring Boot DevTools** for fast development tools.
+- **Lombok** for simplifies Java code by generating boilerplate.
+- **Spring Boot Thymeleaf** for template engine for building server-side HTML-based views.
+- **Spring Cloud OpenFeign** for declarative REST client support using Feign for HTTP communication. 
 
 # How to run!
 

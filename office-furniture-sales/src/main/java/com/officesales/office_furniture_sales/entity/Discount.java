@@ -55,9 +55,14 @@ public class Discount {
     private Product product;
 
     /*
-     * nullable = true, so null values are allowed. This has null when discount is buy x, pay y.  
+     * nullable = true, so null values are allowed. This has null when discount is buy x, pay y.
+     * BigDecimal over Integer was chosen because of nature of financial application. Store as 0.10 for 10% or 0.025 for 25%.
      */
     
+    //TODO(heikki, add validation) Make sure, discount is not saved as Integer values! 
+    // Ensure the discount value is between 0 and 1 (i.e., between 0% and 100%)
+    // @DecimalMin(value = "0.00", inclusive = true, message = "Discount cannot be less than 0%.")
+    // @DecimalMax(value = "1.00", inclusive = true, message = "Discount cannot be greater than 100%.")
     @Column(nullable = true)
     private BigDecimal discountValue;  // Used only percentage. This one is null, when discount type is "Buy X, Pay Y", otherwise its % value.
     
