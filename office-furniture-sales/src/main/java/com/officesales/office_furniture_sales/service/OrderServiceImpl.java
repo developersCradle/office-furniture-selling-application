@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.officesales.office_furniture_sales.client.StockServiceFeignClient;
 import com.officesales.office_furniture_sales.dto.OrderDTO;
 import com.officesales.office_furniture_sales.dto.OrderItemInCartDTO;
 import com.officesales.office_furniture_sales.entity.Customer;
@@ -16,30 +17,28 @@ import com.officesales.office_furniture_sales.entity.OrderItemInCart;
 import com.officesales.office_furniture_sales.entity.Product;
 import com.officesales.office_furniture_sales.exception.ResourceNotFoundException;
 import com.officesales.office_furniture_sales.repository.CustomerRepository;
-import com.officesales.office_furniture_sales.repository.DiscountRepository;
 import com.officesales.office_furniture_sales.repository.OrderRepository;
 import com.officesales.office_furniture_sales.repository.ProductRepository;
 
 /*
- * Responsible for handling the business logic related to orders.
+ * Responsible for handling the business logic related to Orders.
  */
 
 @Service
 public  class OrderServiceImpl implements OrderService {
 	
-	 	@Autowired
-	    private DiscountServiceImpl discountService; 
-	 
+	    private final DiscountServiceImpl discountService;
+	 	private final StockServiceFeignClient stockServiceFeignClient;
 	 	private final OrderRepository orderRepository;
-	    private final DiscountRepository discountRepository;
 	    private final ProductRepository productRepository;
 	    private final CustomerRepository customerRepository;
 
 	    @Autowired
-	    public OrderServiceImpl(OrderRepository orderRepository, CustomerRepository customerRepository, DiscountRepository discountRepository, ProductRepository productRepository) { // Construction injection preferred!
-	        this.orderRepository = orderRepository;
+	    public OrderServiceImpl(DiscountServiceImpl discountService, StockServiceFeignClient stockServiceFeignClient, OrderRepository orderRepository, CustomerRepository customerRepository, ProductRepository productRepository, DiscountServiceImpl discountService2) { // Construction injection preferred!
+			this.discountService = discountService;
+			this.stockServiceFeignClient = stockServiceFeignClient;
+			this.orderRepository = orderRepository;
 	        this.customerRepository = customerRepository;
-	        this.discountRepository = discountRepository;
 	        this.productRepository = productRepository;
 	    }
     
@@ -190,4 +189,14 @@ public  class OrderServiceImpl implements OrderService {
 	    
 	    return orderDTO;
 	}
+	
+	
+	/*
+	 * Validates Order against external service called stock service.
+	 * OrderDTO is sent to external service.
+	 */
+	
+	public boolean validateOrderAgainstExternalService(OrderDTO orderDTO) {
+		    return stockServiceFeignClient.isOrderValid(orderDTO);
+	    }
 }

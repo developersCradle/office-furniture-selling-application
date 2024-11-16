@@ -3,6 +3,7 @@ package com.officesales.office_furniture_sales.service;
 
 
 import com.officesales.office_furniture_sales.dto.OrderDTO;
+import com.officesales.office_furniture_sales.entity.Order;
 
 public interface OrderService {
 	
@@ -15,5 +16,8 @@ public interface OrderService {
 	// END - Order basic operations.
 	
 	Double calculateOrderTotalToOrder(Long orderId);
-
+	
+	// START - External services.
+	boolean validateOrderAgainstExternalService(OrderDTO orderDTO);
+	// END - External services.
 }

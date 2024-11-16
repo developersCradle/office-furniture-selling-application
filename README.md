@@ -56,6 +56,9 @@ How would you create a report of the sum of the total price of the orders, group
     
 - Showing data as Text with **Spring end point**.
 
+> Validate an order against a stock service.
+- There would be **method**  `public boolean validateOrderAgainstExternalService(OrderDTO orderDTO) ` in **OrderServiceImpl** which calls in the end `@FeighClient` Or Other SpringBoot mechanisms(`RestTemplate`, `WebClient`) for calling external service.
+
 > Products can have an optional category, and a new type of discount is: X% off products of a given category.
 
 - **Products** can have an optional category. **null** is **no category** specified.
