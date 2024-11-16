@@ -1,9 +1,8 @@
 package com.officesales.office_furniture_sales.service;
 
-
+import java.math.BigDecimal;
 
 import com.officesales.office_furniture_sales.dto.OrderDTO;
-import com.officesales.office_furniture_sales.entity.Order;
 
 public interface OrderService {
 	
@@ -12,10 +11,9 @@ public interface OrderService {
 	OrderDTO addNewProductToOrder(Long orderId, Long productId, int quantity);
 	OrderDTO updateItemQuantity(Long orderId, Long itemId, int quantity);
 	OrderDTO removeProductFromOrder(Long orderId, Long itemId);
-	OrderDTO getOrderDetails(Long orderId);
 	// END - Order basic operations.
 	
-	Double calculateOrderTotalToOrder(Long orderId);
+	BigDecimal calculateTotalOrderPrice(Long orderId);
 	
 	// START - External services.
 	boolean validateOrderAgainstExternalService(OrderDTO orderDTO);

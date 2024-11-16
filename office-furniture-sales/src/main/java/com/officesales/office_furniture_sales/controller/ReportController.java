@@ -32,6 +32,7 @@ public class ReportController {
     /*
      * Retrieves a detailed report for the specified order and returns a view for display.
      */
+    
     @GetMapping("/order/report/{orderId}")
     public String getOrderDetailsReport(@PathVariable Long orderId, Model model) {
     	
@@ -45,7 +46,6 @@ public class ReportController {
         
         orderDTO.setOrderId(1L);
         orderDTO.setOrderDate(LocalDateTime.now());
-        orderDTO.setTotalAmount(new BigDecimal("150.00"));
         
         OrderItemInCartDTO item1 = new OrderItemInCartDTO();
         item1.setProductName("Office Chair");
@@ -68,18 +68,13 @@ public class ReportController {
         discount2.setDiscountType(DiscountType.BUY_X_PAY_Y);
         discount2.setDiscountValue(new BigDecimal("25.00"));
         
-        List<DiscountDTO> appliedDiscounts = new ArrayList<>(Arrays.asList(discount1, discount2));
-        orderDTO.setAppliedDiscounts(appliedDiscounts);
         
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        for (OrderItemInCartDTO item : items) {
-            BigDecimal totalPriceForItem = item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
-            item.setTotalPrice(totalPriceForItem);
-        }
     	// DUMMY END - This will change take real Order from db.
     	
         model.addAttribute("order", orderDTO); // Adding to model.
-
+        model.addAttribute("totalAmount", 200);
+        // model.addAttribute("totalAmount", orderService.calculateTotalOrderPrice(orderId)); // Adding to model
+        
         return "orderDetails"; // Thymeleaf will go look for orderDetails.html
     }
     

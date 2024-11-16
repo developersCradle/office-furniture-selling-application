@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderItemInCartDTO {
 	 	private Long OrderItemInCartId;
+	 	private String productName;
 	 	private Integer quantity;
-	    private String productName;
 	    private BigDecimal unitPrice; // When was clicked into basked in web shop.
-	    private BigDecimal totalPrice;   // The total price for this item (unitPrice * quantity).
 }

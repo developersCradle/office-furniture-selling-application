@@ -1,6 +1,8 @@
 package com.officesales.office_furniture_sales.controller;
 
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,16 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedOrder);
     }
 
+    /*
+     * Remove later.
+     * Testing end point calculating the total price of an order, taking into account the discount agreement.
+     */
+    
+    @GetMapping("/{orderId}/total")
+    public ResponseEntity<BigDecimal> calculateTotalOrderPrice(@PathVariable Long orderId) {
+        BigDecimal totalPrice = orderService.calculateTotalOrderPrice(orderId);
+        return ResponseEntity.ok(totalPrice);
+    }
     
 //    @GetMapping("/{orderId}")
 //    public ResponseEntity<OrderDTO> getOrderDetails(@PathVariable Long orderId) {

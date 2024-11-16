@@ -23,7 +23,9 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    // GET all customers end point.
+    /*
+     * List of Customers. For testing some.
+     */
     @GetMapping
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         List<CustomerDTO> customers = customerService.getAllCustomers();

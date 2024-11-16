@@ -14,7 +14,6 @@ import com.officesales.office_furniture_sales.repository.CustomerRepository;
  * Service for handling tasks related to managing customers. Example "there is a list of Customers".
  */
 
-//TODO (heikki, return value) Add also customers can have some Discount Agreements.
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -27,13 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 	
-	// DTO converter here for simplicity reasons. For now, we only need data for listing customers.
-    private CustomerDTO convertToDTO(Customer customer) {
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(customer.getId());
-        customerDTO.setName(customer.getName());
-        return customerDTO;
-    }
+	/*
+	 *  Get all Customers.
+	 */
 	
     @Override
     public List<CustomerDTO> getAllCustomers() {
@@ -43,4 +38,15 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
+    /*
+	 * 	Mapping is straightforward (e.g., simple DTOs with a few fields), so converter is here.
+	 */
+    
+    private CustomerDTO convertToDTO(Customer customer) {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(customer.getId());
+        customerDTO.setName(customer.getName());
+        return customerDTO;
+    }
+	
 }

@@ -52,7 +52,8 @@ How would you create a report of the sum of the total price of the orders, group
 
 - Showing data with **Thymeleaf** as HTML.
     - ⚠️ Think about MVC pattern here, for now i went with good be practices. Got some template working for now, only **one** and best discount should show.
-    <img src="someWhatWorkingNow.jpg" alt="reactive programming" width="400" height="150"/>
+
+<p align="center"><img src="someWhatWorkingNow.jpg" alt="reactive programming" width="400" height="200"/></p>
     
 - Showing data as Text with **Spring end point**.
 
@@ -79,6 +80,7 @@ They can then add new products, change the quantity for existing products, or re
     - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
     - ⚠️**Todo** add helpers methods for all bi-directional entities.
 - ⚠️ Todo Indexing.
+- ⚠️ Todo Unit Test and Integration Tests.
 
 - **DTO** are used for inside our business logic.
 -  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.

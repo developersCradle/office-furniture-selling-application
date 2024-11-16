@@ -9,6 +9,7 @@ package com.officesales.office_furniture_sales.shared;
  * DiscountType is inside shared package since, service layer is needing this for business logic.
  */
 
+//TODO (heikki, add all types here) Add all discount possibilities here. I will be easier to scale more discounts.
 public enum DiscountType {
     PERCENTAGE,      // Percentage Discount example 15% off from Product or from Order.
     BUY_X_PAY_Y   	 // Unit Discount "Buy X, pay for Y".

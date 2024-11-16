@@ -11,7 +11,11 @@ import com.officesales.office_furniture_sales.entity.Discount;
 import com.officesales.office_furniture_sales.entity.Order;
 
 @Service
-public class DiscountServiceImpl {
+public class DiscountServiceImpl implements DiscountService {
+	
+	/*
+	 * Return highest value form Discount form given Order.
+	 */
 	
 	 public BigDecimal calculateBestDiscountForGivenOrder(Order order) {
 		 
@@ -53,7 +57,7 @@ public class DiscountServiceImpl {
 	                return placedOrder.getOrderItems().stream()
 	                	                .map(item -> item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()))) // Unit price(when was clicked) * quantity = total. This discount applied to whole Order.
 	                	                .reduce(BigDecimal.ZERO, BigDecimal::add); // Start from 0 and count all values total.
-	                		
+	                		//TODO heikki tsekkaa tää
 	            case BUY_X_PAY_Y:
 	                // Example of "Buy X, Pay for Y" discount on a specific product.
 	            	placedOrder.getOrderItems().stream()

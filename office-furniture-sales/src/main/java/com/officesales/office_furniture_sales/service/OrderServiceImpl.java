@@ -135,26 +135,25 @@ public  class OrderServiceImpl implements OrderService {
 	    return convertToDTO(order);
 	}
 
-
+	/*
+	 * Calculates total price for Order and applies best discount offer available.
+	 */
+	
 	@Override
-	public OrderDTO getOrderDetails(Long orderId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-    public Double calculateOrderTotalToOrder(Long orderId) {
+    public BigDecimal calculateTotalOrderPrice(Long orderId) {
     	
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with id " + orderId));
 
-        Double total = order.getOrderItems().stream()
-                .mapToDouble(item -> item.getQuantity() * item.getUnitPrice().doubleValue())
-                .sum();
+        BigDecimal totalOrderPrice = order.getOrderItems().stream()
+        	    .map(item -> {
+        	        // Calculate the total price for each item.
+        	        BigDecimal itemTotal = item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+        	        return itemTotal;
+        	    })
+        	    .reduce(BigDecimal.ZERO, BigDecimal::add); // Sum up all item totals.
         
-        BigDecimal bestDiscountByValue = discountService.calculateBestDiscountForGivenOrder(order);
-        
-        return total;
+        return totalOrderPrice.subtract(discountService.calculateBestDiscountForGivenOrder(order)); // Only the best Discount will affect!
     }
 
 
@@ -179,7 +178,6 @@ public  class OrderServiceImpl implements OrderService {
 	                    itemInCartDTO.setProductName(itemInCart.getProduct().getName());
 	                    itemInCartDTO.setUnitPrice(itemInCart.getUnitPrice());
 	                    itemInCartDTO.setQuantity(itemInCart.getQuantity());
-	                    itemInCartDTO.setTotalPrice(itemInCart.getUnitPrice().multiply(BigDecimal.valueOf(itemInCart.getQuantity()))); //TODO in where total price should be checked?
 	                    return itemInCartDTO;
 	                })
 	                .collect(Collectors.toList());

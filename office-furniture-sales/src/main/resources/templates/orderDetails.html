@@ -2,75 +2,121 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Order Details</title>
-    
-    <!-- Link to External CSS File -->
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <title>Order Report</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;  /* Light green background */
+            color: #2e7d32;  /* Dark green text */
+            margin: 0;
+            padding: 0;
+        }
 
+        /* Header Section */
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #388e3c;  /* Medium green */
+            color: white;
+            margin: 0;
+        }
+
+        /* Container for the report */
+        .container {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #388e3c;  /* Medium green for section headers */
+            border-bottom: 2px solid #388e3c;
+            padding-bottom: 10px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #388e3c;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #81c784;  /* Light green for headers */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #a5d6a7;  /* Alternate row color */
+        }
+
+        tr:hover {
+            background-color: #66bb6a;  /* Darker green on hover */
+            color: white;
+        }
+
+        .order-info p {
+            font-size: 16px;
+        }
+
+        .order-info strong {
+            color: #388e3c;
+        }
+
+        .order-info {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
+    <h1>Order Report</h1>
+
+    <!-- Container for the report content -->
     <div class="container">
-        <h1>Order Details</h1>
-        
-        <!-- Order Information -->
+        <!-- Order Information Section -->
         <div class="order-info">
-            <h2>Order ID: <span th:text="${order.orderId}">Order ID</span></h2>
-            <p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}">Order Date</span></p>
-            <p><strong>Total Amount:</strong> $<span th:text="${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Total Amount</span></p>
+            <h2>Order Details</h2>
+            <p><strong>Order ID:</strong> <span th:text="${order.orderId}"></span></p>
+            <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
+            <p><strong>Customer Name:</strong> <span th:text="${order.customerName}"></span></p>
+            <p><strong>Customer ID:</strong> <span th:text="${order.customerId}"></span></p>
         </div>
 
-        <hr>
-        
-        <!-- Order Items -->
-        <h2>Items in Order</h2>
+        <!-- Items in Cart Section -->
+        <h2>Items in Cart</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Product Name</th>
-                    <th>Unit Price</th>
+                    <th>Item Name</th>
                     <th>Quantity</th>
-                    <th>Total Price</th>
+                    <th>Price</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="item : ${order.items}">
-                    <td th:text="${item.productName}">Product Name</td>
-                    <td th:text="${#numbers.formatDecimal(item.unitPrice, 1, 'COMMA', 2, 'POINT')}">Unit Price</td>
-                    <td th:text="${item.quantity}">Quantity</td>
-                    <td th:text="${#numbers.formatDecimal(item.totalPrice, 1, 'COMMA', 2, 'POINT')}">Total Price</td>
+                <!-- Iterating through itemsInCart list -->
+                <tr th:each="item : ${order.itemsInCart}">
+                    <td th:text="${item.productName}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${item.unitPrice}"></td>
+                    <td th:text="${item.quantity * item.unitPrice}"></td>
                 </tr>
             </tbody>
         </table>
-
-        <hr>
-
-        <!-- Discounts Applied -->
-        <h2>Applied Discounts</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Discount Type</th>
-                    <th>Discount Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="discount : ${order.appliedDiscounts}">
-                    <td th:text="${discount.discountType}">Discount Type</td>
-                    <td th:text="${#numbers.formatDecimal(discount.discountValue, 1, 'COMMA', 2, 'POINT')}">Discount Value</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <hr>
-        
-        <!-- Final Total with Discounts Applied -->
-        <div class="final-total">
-            <h3>Final Total After Discounts</h3>
-            <p><strong>After applying all discounts, the final amount is: </strong>
-                $<span th:text="${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Final Amount</span>
-            </p>
-        </div>
     </div>
 
 </body>
