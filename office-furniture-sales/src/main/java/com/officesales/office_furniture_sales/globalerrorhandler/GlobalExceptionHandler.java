@@ -11,7 +11,8 @@ import com.officesales.office_furniture_sales.exception.ErrorResponse;
 import com.officesales.office_furniture_sales.exception.ResourceNotFoundException;
 
 /*
- * Add here when new exception comes.
+ * A GlobalExceptionHandler in a Spring Boot application provides a centralized way to handle exceptions.
+ * 
  */
 
 @RestControllerAdvice
@@ -19,7 +20,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
-
     	
         ErrorResponse errorResponse = new ErrorResponse("error", ex.getMessage());
         

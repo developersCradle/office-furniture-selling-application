@@ -29,6 +29,9 @@ public class ReportController {
     }
     
 
+    /*
+     * Retrieves a detailed report for the specified order and returns a view for display.
+     */
     @GetMapping("/order/report/{orderId}")
     public String getOrderDetailsReport(@PathVariable Long orderId, Model model) {
     	
@@ -55,7 +58,7 @@ public class ReportController {
         item2.setQuantity(3);
         
         List<OrderItemInCartDTO> items = new ArrayList<>(Arrays.asList(item1, item2));
-        orderDTO.setItems(items);
+        orderDTO.setItemsInCart(items);
 
         DiscountDTO discount1 = new DiscountDTO();
         discount1.setDiscountType(DiscountType.PERCENTAGE);
@@ -79,4 +82,6 @@ public class ReportController {
 
         return "orderDetails"; // Thymeleaf will go look for orderDetails.html
     }
+    
+  //TODO (heikki, end point for return text ) end point getOrderDetailsAsText with some cool StringBuilder logic!
 }

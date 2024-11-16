@@ -65,26 +65,28 @@ How would you create a report of the sum of the total price of the orders, group
 They can then add new products, change the quantity for existing products, or remove products from the order. (very similar to the web-shop cart).
 
 - This is done trough smaller end points, rather than one big end point where body would accept Object.
+- These is done in `OrderController`.
 
 ### Architecture Explanation and choices.
 
--  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
 - **Entities** till **Service Layer**.
-- ⚠️ Todo **Entities** are validate to the business rule.
+    - Business logic in Service Layer level. Such as Discount Rules. Not in Entity level.
+- ⚠️ Todo **Entities** are validate to the business rule on service level.
 - **Entities** will mostly use **One-to-Many** and **Many-to-One** relationships for convince for backend coding.
     - **Entities** have some helper methods for managing **bi-directional** relationships. In general no logic should be inside entities.
     - ⚠️**Todo** add helpers methods for all bi-directional entities.
 - ⚠️ Todo Indexing.
 
 - **DTO** are used for inside our business logic.
-
+-  Will be using **Repository** over **DAO**, since its more common and it comes from Spring family.
 - **Repository** interfaces for each core entity:
     - `CustomerRepository`, `DiscountRepository`, `OrderRepository` and `ProductRepository`.
-- Saving wil be done using `repository` since we have **properly configured** entity relationships.
-    - `EntityManager` could be also used for fine-grained control over the persistence context, but for now went with Repositories.
+- Saving wil be done using `repository` since we have **properly configured** entity relationships. We can fully leverage Entity modifications, example trough **JPA cascading**.
+    - `EntityManager` could be also used for fine-grained control over the persistence context, but for now went with `Repositories`.
 
 -  `GlobalExceptionHandler` handles exceptions.
     - A **GlobalExceptionHandler** in a Spring Boot application provides a centralized way to handle exceptions.
+
 ### POM.
 
 - **Spring Web Web** for API:s.
@@ -116,21 +118,111 @@ docker-compose down --volumes --remove-orphans
 
 # API Document.
 
-- ⚠️ Todo think end point URL. For now they just work.
+## Reporting API:s.
 
-## Endpoint: `GET /api/customers`
+#### Endpoint: `/order/report/{orderId}`
 
-### Overview.
+#### Overview.
+
+Retrieves a detailed report for the specified Order and returns a view for display.
+
+- **HTTP Method**: `GET`
+
+#### Path Parameters.
+
+| Parameter  | Type   | Description                    | Required |
+|------------|--------|--------------------------------|----------|
+| `orderId`  | `Long` | ID of the Order to retrieve.  | Yes      |
+
+
+## Customer API.
+
+#### Endpoint: `/api/customers`
+
+- **HTTP Method**: `GET`
+
+#### Overview.
+
 This endpoint retrieves a list of all customers in the database.
 - **Response:** A list of customer, including the customer's ID and name. In JSON.
 
+## Order related API:s.
 
-## Endpoint: `/order/report/{orderId}`
+#### Endpoint: `/orders/{orderId}/items/{orderItemInCartId}`  
 
-### Overview.
-This endpoint fetches and displays a detailed report for a specific order identified by its `orderId`. 
-Report is an **HTML page** using the **Thymeleaf** template engine.
+- **HTTP Method**: `DELETE`
 
-# Database Design
+#### Overview.
+
+ Removes a specific Product completely from an existing Order.
+
+### URL Parameters  
+| Parameter              | Type   | Description                                |
+|------------------------|--------|--------------------------------------------|
+| `orderId`              | Long   | The unique ID of the Order.               |
+| `orderItemInCartId`    | Long   | The unique ID of the OrderItemInCart in the Order.   |
+
+#### Endpoint: `/orders/{orderId}/items`
+
+#### Overview.
+
+Add a totally new Product to an existing Order.
+
+- **HTTP Method**: `POST`
+
+#### Path Parameters.
+
+| Parameter    | Type   | Description                                      |
+|--------------|--------|--------------------------------------------------|
+| `orderId`    | Long   | The ID of the Order to which the Product will be added. |
+
+#### Query Parameters.
+
+| Parameter    | Type   | Description                                      |
+|--------------|--------|--------------------------------------------------|
+| `productId`  | Long   | The ID of the Product to be added to the order.  |
+| `quantity`   | int    | The quantity of the product to be added.        |
+
+
+#### Endpoint: `/orders/customers/{customerId}` 
+
+#### Overview.
+
+Creates a new Order for the specified Customer. This is `GET` for sake of simplicity.
+
+- **HTTP Method**: `GET`
+
+#### Path Parameters.
+
+| Parameter    | Type   | Description                        | Required |
+|--------------|--------|------------------------------------|----------|
+| `customerId` | `Long` | ID of the Customer for the Order.  | Yes      |
+
+
+#### Endpoint: `/orders/{orderId}/items/{itemId}` 
+
+#### Overview.
+
+Updates the quantity of a specific OrderItemInCart in an Order.
+
+- **HTTP Method**: `PUT`
+
+#### Path Parameters.
+
+| Parameter   | Type   | Description                        | Required |
+|-------------|--------|------------------------------------|----------|
+| `orderId`   | `Long` | ID of the Order to be updated.     | Yes      |
+| `orderItemInCartId`    | `Long` | ID of the OrderItemInCartId to update.          | Yes      |
+
+---
+
+#### Query Parameters.
+
+| Parameter   | Type    | Description                          | Required |
+|-------------|---------|--------------------------------------|----------|
+| `quantity`  | `int`   | The new quantity for the item. This can be + or -.       | Yes      |
+
+
+# Database Design.
 
 - ⚠️ Todo here.

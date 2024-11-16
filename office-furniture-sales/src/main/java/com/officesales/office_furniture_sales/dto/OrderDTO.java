@@ -16,10 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OrderDTO {
-	
 	private Long orderId;
-    private LocalDateTime orderDate; //TODO lissää Entityyn tämä
+    private LocalDateTime orderDate;
     private BigDecimal totalAmount;  //tsekkaa nämä
-    private List<OrderItemInCartDTO> items;
+    private String customerName; // Name of the customer who placed the order
+    private Long customerId; // ID of the customer.
+    
+    private List<OrderItemInCartDTO> itemsInCart;
     private List<DiscountDTO> appliedDiscounts;
 }
