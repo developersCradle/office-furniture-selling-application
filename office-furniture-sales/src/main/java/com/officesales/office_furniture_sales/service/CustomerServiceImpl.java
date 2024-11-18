@@ -14,7 +14,6 @@ import com.officesales.office_furniture_sales.repository.CustomerRepository;
  * Service for handling tasks related to managing customers. Example "there is a list of Customers".
  */
 
-
 @Service
 public class CustomerServiceImpl implements CustomerService {
 

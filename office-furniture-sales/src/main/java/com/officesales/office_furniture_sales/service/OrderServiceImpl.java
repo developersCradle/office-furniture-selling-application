@@ -41,6 +41,14 @@ public  class OrderServiceImpl implements OrderService {
 	        this.customerRepository = customerRepository;
 	        this.productRepository = productRepository;
 	    }
+	    
+	    @Override
+	    public OrderDTO getOrderDetails(Long orderId) {
+	        Order order = orderRepository.findById(orderId)
+	                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
+	        return convertToDTO(order);
+	    }
+	    
     
 	    public OrderDTO createOrderForCustomer(Long customerId) {
 	    	

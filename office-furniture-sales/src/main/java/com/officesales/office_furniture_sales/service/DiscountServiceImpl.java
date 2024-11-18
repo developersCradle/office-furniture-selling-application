@@ -62,11 +62,11 @@ public class DiscountServiceImpl implements DiscountService {
 	                return placedOrder.getOrderItems().stream()
 	                	                .map(item -> item.getUnitPrice().multiply(new BigDecimal(item.getQuantity()))) // Unit price(when was clicked) * quantity = total. This discount applied to whole Order.
 	                	                .reduce(BigDecimal.ZERO, BigDecimal::add) // Start from 0 and count all values total.
-	                					.multiply(discount.getDiscountValue());  //100% - 10%(discount value) = 90% 
+	                					.multiply(discount.getDiscountValue()); 
 	            case BUY_X_PAY_Y:
 	                // Example of "Buy X, Pay for Y" discount on a specific product.
 	            	return placedOrder.getOrderItems().stream()
-	                        .filter(item -> item.getProduct().equals(discount.getProduct())) //Discounted Product is the same as in Discount.
+	                        .filter(item -> item.getProduct().equals(discount.getProduct())) // Discounted Product is the same as in Discount.
 	                        .findFirst() // Get that OrderItemInCart to calculation.
 	                        .map(orderItemInCalculation -> { 
 	                        	

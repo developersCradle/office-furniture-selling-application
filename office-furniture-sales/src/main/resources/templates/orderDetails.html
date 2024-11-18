@@ -79,6 +79,15 @@
         .order-info {
             margin-bottom: 20px;
         }
+
+        /* Total Amount Styling */
+        .total-amount {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +126,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Total Amount Section -->
+        <div class="total-amount">
+            <p>Total Amount: <span th:text="${totalAmount}"></span></p>
+        </div>
     </div>
 
 </body>

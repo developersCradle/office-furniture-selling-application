@@ -13,7 +13,10 @@ public interface OrderService {
 	OrderDTO removeProductFromOrder(Long orderId, Long itemId);
 	// END - Order basic operations.
 	
+	// START - Raporting operations.
+	OrderDTO getOrderDetails(Long orderId);
 	BigDecimal calculateTotalOrderPrice(Long orderId);
+	// END - Raporting operations.
 	
 	// START - External services.
 	boolean validateOrderAgainstExternalService(OrderDTO orderDTO);

@@ -53,11 +53,6 @@ public class OrderController {
         return ResponseEntity.ok(totalPrice);
     }
     
-//    @GetMapping("/{orderId}")
-//    public ResponseEntity<OrderDTO> getOrderDetails(@PathVariable Long orderId) {
-//        OrderDTO order = orderService.getOrderDetails(orderId);
-//        return ResponseEntity.ok(order);
-//    }
 
     /*
      * Adds a totally new Product as an OrderItemInCart to an existing Order. 
