@@ -1,11 +1,8 @@
-# Office Furniture Selling Application.
-
-
 <p align="center">
-    <img id="fikuro" src="fikuro.png" width=400>
+    <img id="fikuro" src="Fikuro_Visma_Caption.png" width=400>
 </p>
 
-# Development task.
+#### Development task - Office Furniture Selling Application.
 
 Assume you are working for a software house producing applications for wholesale retailers specialized in office furniture. Your clients need software to support the process of selling goods to shops and chains.
 
@@ -38,9 +35,9 @@ How would you create a report of the sum of the total price of the orders, group
 
 - Been since i worked with ORM specifically, so decided to make some random comments on the way to form big image of things.
 
-## Architecture Explanation/POM/Food for thought.
+#### Architecture Explanation/POM/Food for thought.
 
-### Food for thought.
+#### Food for thought.
 
 > You are working on the order module.
 
@@ -53,7 +50,7 @@ How would you create a report of the sum of the total price of the orders, group
 - Showing data with **Thymeleaf** as HTML.
     - ⚠️ Think about MVC pattern here, for now i went with good be practices. Got some template working for now, only **one** and best discount should show.
 
-<p align="center"><img src="someWhatWorkingNow.jpg" alt="reactive programming" width="400" height="200"/></p>
+<p align="center"><img src="Reporting_Page_Currently.jpg" alt="Reporting Page Currenlty!" width="400" height="200"/></p>
     
 - Showing data as Text with **Spring end point**.
 
@@ -71,7 +68,7 @@ They can then add new products, change the quantity for existing products, or re
 - This is done trough smaller end points, rather than one big end point where body would accept Object.
 - These is done in `OrderController`.
 
-### Architecture Explanation and choices.
+#### Architecture explanation and choices.
 
 - **Entities** till **Service Layer**.
     - Business logic in Service Layer level. Such as Discount Rules. Not in Entity level.
@@ -92,7 +89,7 @@ They can then add new products, change the quantity for existing products, or re
 -  `GlobalExceptionHandler` handles exceptions.
     - A **GlobalExceptionHandler** in a Spring Boot application provides a centralized way to handle exceptions.
 
-### POM.
+#### POM.
 
 - **Spring Web Web** for API:s.
 - **PostgreSQL Driver SQL** for **PostgreSQL** database.
@@ -102,7 +99,7 @@ They can then add new products, change the quantity for existing products, or re
 - **Spring Boot Thymeleaf** for template engine for building server-side HTML-based views.
 - **Spring Cloud OpenFeign** for declarative REST client support using Feign for HTTP communication. 
 
-# How to run!
+#### How to run!
 
 Get the repository.
 
@@ -110,7 +107,7 @@ Get the repository.
 git clone https://github.com/developersCradle/office-furniture-selling-application.git
 ```
 
-# Docker.
+#### Docker.
 
 - ⚠️ Todo here, since real database is used. This works for now in development environment.
 
@@ -124,9 +121,9 @@ docker-compose up -d
 docker-compose down --volumes --remove-orphans
 ```
 
-# API Document.
+#### API Document.
 
-## Reporting API:s.
+#### Reporting API:s.
 
 #### Endpoint: `/order/report/{orderId}`
 
@@ -143,7 +140,7 @@ Retrieves a detailed report for the specified Order and returns a view for displ
 | `orderId`  | `Long` | ID of the Order to retrieve.  | Yes      |
 
 
-## Customer API.
+#### Customer API.
 
 #### Endpoint: `/api/customers`
 
@@ -154,7 +151,7 @@ Retrieves a detailed report for the specified Order and returns a view for displ
 This endpoint retrieves a list of all customers in the database.
 - **Response:** A list of customer, including the customer's ID and name. In JSON.
 
-## Order related API:s.
+#### Order related API:s.
 
 #### Endpoint: `/orders/{orderId}/items/{orderItemInCartId}`  
 
@@ -164,7 +161,8 @@ This endpoint retrieves a list of all customers in the database.
 
  Removes a specific Product completely from an existing Order.
 
-### URL Parameters  
+#### URL Parameters.
+
 | Parameter              | Type   | Description                                |
 |------------------------|--------|--------------------------------------------|
 | `orderId`              | Long   | The unique ID of the Order.               |
@@ -231,6 +229,35 @@ Updates the quantity of a specific OrderItemInCart in an Order.
 | `quantity`  | `int`   | The new quantity for the item. This can be + or -.       | Yes      |
 
 
-# Database Design.
+#### Database Design.
 
 - ⚠️ Todo here.
+
+#### Feedback/Grade.
+
+- Feedback in Finnish, with **senior grade**:
+
+<div align="center">
+    <img alt="Feedack for the senior role, Visma Figuro!" src="Feedback_Senior_Grade_Fin_One_Out_Of_Two.JPG" width="1200"/>
+</div>
+
+1. ⚠️ Go one by one and explain these thought! ⚠️
+2. ⚠️ ~~No transaction~~. Fixed [here](#). ⚠️
+3. ⚠️ Fixed [here](#). ⚠️
+4. ⚠️ Fixed [here](#). ⚠️
+5. ⚠️ Fixed [here](#). ⚠️
+6. ⚠️ ~~Weird table name~~. Fixed [here](#). ⚠️
+7. ⚠️ Fixed [here](#). ⚠️
+8. ✔️ Check [here](#). ✔️
+9. ✔️ Exception handling was **brilliant**! Check [here](https://github.com/developersCradle/office-furniture-selling-application/blob/main/office-furniture-sales/src/main/java/com/officesales/office_furniture_sales/globalerrorhandler/GlobalExceptionHandler.java). ✔️
+10. ✔️ **Java** and **Spring** mastery is **good**! ✔️
+
+<div align="center">
+    <img alt="Office furniture selling application feeback for page one!" src="Feedback_Senior_Grade_Fin_Two_Out_Of_Two.JPG" width="1200"/>
+</div>
+
+1. ✔️ Candidate is suitable for **Senior Java** and **Spring roles**! ✔️
+
+#### What I Learned.
+
+- Use of `StringBuilder` for creating nice HTML **Thymeleaf** page!
